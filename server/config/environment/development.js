@@ -5,7 +5,7 @@
 module.exports = {
     // MongoDB connection options
     mongo: {
-        uri: 'mongodb://localhost/testapi-dev'
+        uri: 'mongodb://localhost/vendafacil-dev'
     },
 
     seedDB: true
