@@ -28,3 +28,11 @@ exports.create = function(transaction) {
         return Transaction.create(transaction);
     })
 };
+
+exports.findAll = function(offset, limit) {
+    return Transaction.findAll({offset: offset, limit: limit});
+}
+
+exports.findById = function(id) {
+    return Transaction.findOne({ id: id, deletedAt: null });
+}
