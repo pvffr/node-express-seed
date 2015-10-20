@@ -8,5 +8,18 @@ module.exports = {
         uri: 'mongodb://192.168.99.100/vendafacil-dev'
     },
 
-    seedDB: true
+    seedDB: true,
+
+    //MySQL Connection Options
+    mysql: {
+        schema: 'vendafacil-dev',
+        username: 'root',
+        password: 'root',
+        host: '192.168.99.100',
+        pool: {
+            max: 5,
+            min: 0,
+            idle: 10000
+        }
+    }
 };
