@@ -15,7 +15,27 @@ exports.create = function(req, res) {
  * Update a transaction
  */
 exports.update = function(req, res) {
-    Transaction.create(req.body).then(function (data) {
+
+    var transactionId = req.params.id;
+    var transaction = req.body;
+
+    transaction.id = transactionId;
+
+    Transaction.update(transaction).then(function () {
+        Transaction.findById(transactionId).then(function (data) {
+            res.status(200).json(data);
+        });
+    });
+};
+
+/**
+ * Delete a transaction
+ */
+exports.delete = function(req, res) {
+
+    var transactionId = req.params.id;
+
+    Transaction.delete(transactionId).then(function (data) {
         res.status(200).json(data);
     });
 };

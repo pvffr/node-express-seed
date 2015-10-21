@@ -17,6 +17,9 @@ var Transaction = sequelize.define('transaction', {
         values: ['IN', 'OUT']
     }
 }, {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+    deletedAt: 'deleted_at',
     timestamps: true,
     paranoid: true,
     underscored: true,
@@ -24,9 +27,15 @@ var Transaction = sequelize.define('transaction', {
 });
 
 exports.create = function(transaction) {
-    return Transaction.sync().then(function() {
-        return Transaction.create(transaction);
-    })
+    return Transaction.create(transaction);
+};
+
+exports.update = function(transaction) {
+    return Transaction.update(transaction, { where: { id: transaction.id, deleted_at: null} });
+};
+
+exports.delete = function(id) {
+    return Transaction.destroy({ where: { id: id} });
 };
 
 exports.findAll = function(offset, limit) {
@@ -34,5 +43,5 @@ exports.findAll = function(offset, limit) {
 }
 
 exports.findById = function(id) {
-    return Transaction.findOne({ id: id, deletedAt: null });
+    return Transaction.findOne( { where: { id: id} } );
 }
