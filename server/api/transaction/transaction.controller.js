@@ -44,10 +44,7 @@ exports.delete = function(req, res) {
  * Find All transaction - pagination
  */
 exports.findAll = function(req, res) {
-    var offset = req.params.offset || 0;
-    var limit = req.params.limit || 100;
-
-    Transaction.findAll(offset, limit).then(function (data) {
+    Transaction.findAll().then(function (data) {
         res.status(200).json(data);
     });
 };

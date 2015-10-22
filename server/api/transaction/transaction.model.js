@@ -12,36 +12,52 @@ var Transaction = sequelize.define('transaction', {
     value: {
         type: Sequelize.STRING
     },
+    description: {
+        type: Sequelize.STRING
+    },
     type: {
         type: Sequelize.ENUM,
         values: ['IN', 'OUT']
     }
 }, {
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
-    deletedAt: 'deleted_at',
     timestamps: true,
     paranoid: true,
-    underscored: true,
+    underscored: false,
     tableName: 'transactions'
 });
+
+Transaction.sync();
 
 exports.create = function(transaction) {
     return Transaction.create(transaction);
 };
 
 exports.update = function(transaction) {
-    return Transaction.update(transaction, { where: { id: transaction.id, deleted_at: null} });
+    return Transaction.update(transaction, {
+        where: {
+            id: transaction.id,
+            deletedAt: null
+        }
+    });
 };
 
 exports.delete = function(id) {
     return Transaction.destroy({ where: { id: id} });
 };
 
-exports.findAll = function(offset, limit) {
-    return Transaction.findAll({offset: offset, limit: limit});
+exports.findAll = function() {
+    return Transaction.findAll({
+        where: {
+            deletedAt: null
+        }
+    });
 }
 
 exports.findById = function(id) {
-    return Transaction.findOne( { where: { id: id} } );
+    return Transaction.findOne({
+        where: {
+            id: id,
+            deletedAt: null
+        }
+    });
 }
