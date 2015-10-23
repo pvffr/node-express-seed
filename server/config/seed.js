@@ -9,6 +9,7 @@ var User = require('../api/user/user.model');
 
 User.find({}).remove(function() {
     User.create({
+        _id:'56283e09903a07701f37e45f',
         provider: 'local',
         name: 'Test User',
         email: 'test@test.com',

@@ -5,14 +5,14 @@
 'use strict';
 
 var errors = require('./components/errors');
+var auth = require('./auth/auth.service');
 
 module.exports = function(app) {
 
-    // Insert routes below
+    app.use('/api', auth.isAuthenticated());
+
     app.use('/api/users', require('./api/user'));
-
     app.use('/api/transactions', require('./api/transaction'));
-
     app.use('/auth', require('./auth'));
 
     // All undefined asset or api routes should return a 404
